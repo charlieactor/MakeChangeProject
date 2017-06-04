@@ -34,7 +34,22 @@ public class MakeChange {
 				difference = makeChange(difference, 0.25, "quarter");
 				difference = makeChange(difference, 0.10, "dime");
 				difference = makeChange(difference, 0.05, "nickel");
-				difference = makeChange(difference, 0.01, "penny");
+				if ((difference / .01) >= 1) {
+					double num = difference / .01;
+					difference -= num * .01;
+					if (difference < .009) {
+						difference = Math.floor(difference * 100.0) / 100.0;
+					}
+					else {
+						difference = Math.round(difference * 100.0) / 100.0;
+					}
+					if ((int)num == 1 ) {
+						System.out.println((int)num + " penny");
+					}
+					else {
+						System.out.println((int)num + " pennies");
+					}
+				}
 			}
 		}
 		keyboard.close();
