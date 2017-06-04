@@ -25,6 +25,8 @@ public class MakeChange {
 		else {
 			while (difference > 0.0) {
 				
+				difference = makeChange(difference, 100.0, "one hundred");
+				difference = makeChange(difference, 50.0, "fifty");
 				difference = makeChange(difference, 20.0, "twenty");
 				difference = makeChange(difference, 10.0, "ten");
 				difference = makeChange(difference, 5.0, "five");
