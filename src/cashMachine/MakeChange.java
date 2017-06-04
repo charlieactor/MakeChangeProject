@@ -44,7 +44,7 @@ public class MakeChange {
 		if ((difference / value) >= 1) {
 			double num = difference / value;
 			difference %= value;
-			if (difference < .01) {
+			if (difference < .009) {
 				difference = Math.floor(difference * 100.0) / 100.0;
 			}
 			else {
