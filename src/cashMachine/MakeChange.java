@@ -7,13 +7,14 @@ public class MakeChange {
 	public static void main(String[] args) {
 		Scanner keyboard = new Scanner(System.in);
 		double price, tendered, difference;
-		String change = "";
 
 		System.out.print("Please enter the price of the item: ");
 		price = keyboard.nextDouble();
 		System.out.print("\nPlease enter the amount of money tendered: ");
 		tendered = keyboard.nextDouble();
 		difference = tendered - price;
+		difference = Math.round(difference * 100.0) / 100.0;
+		System.out.println("Your change: " + difference);
 
 		if (price == tendered) {
 			System.out.println("You've given exact change! Thanks for that. Now get out!");
@@ -22,85 +23,38 @@ public class MakeChange {
 		}
 
 		else {
-			while (difference > 0) {
-
-				if ((difference / 20) >= 1) {
-					double num20 = difference / 20;
-					difference %= 20;
-					if ((int)num20 == 1) {
-						System.out.print((int)num20 + " twenty, ");
-					}
-					else {
-					System.out.print((int)num20 + " twenties, ");
-					}
-				} 
-				else if ((difference / 10) >= 1) {
-					double num10 = difference / 10;
-					difference %= 10;
-					if ((int)num10 == 1) {
-						System.out.print((int)num10 + " ten, ");
-					}
-					else {
-					System.out.print((int)num10 + " tens, ");
-					}
-				} else if ((difference / 5) >= 1) {
-					double num5 = difference / 5;
-					difference %= 5;
-					if ((int)num5 == 1) {
-						System.out.print((int)num5 + " five, ");
-					}
-					else {
-					System.out.print((int)num5 + " fives, ");
-					}
-				} else if ((difference / 1) >= 1) {
-					double num1 = difference / 1;
-					difference %= 1;
-					if ((int)num1 == 1) {
-						System.out.print((int)num1 + " one, ");
-					}
-					else {
-						System.out.print((int)num1 + " ones, ");
-					}
-				} else if ((difference / 0.25) >= 1){
-					double numQ = difference / 0.25;
-					difference %= 0.25;
-					if ((int)numQ == 1) {
-						System.out.print((int)numQ + " quarter, ");
-					}
-					else {
-						System.out.print((int)numQ + " quarters, ");
-					}
-				} else if ((difference / 0.10) >= 1){
-					double numD = difference / 0.10;
-					difference %= 0.10;
-					if ((int)numD == 1) {
-						System.out.print((int)numD + " dime, ");
-					}
-					else {
-						System.out.print((int)numD + " dimes, ");
-					}
-				} else if ((difference / 0.05) >= 1) {
-					double numN = difference / 0.05;
-					difference %= 0.05;
-					if ((int)numN == 1) {
-						System.out.print((int)numN + " nickel, ");
-					}
-					else {
-						System.out.print((int)numN + " nickels, ");
-					}
-				} else if ((difference / 0.01) >= 1) {
-					double numP = difference / 0.01;
-					difference %= 0.01;
-					if ((int)numP == 1 ) {
-						System.out.print((int)numP + " penny.");
-					}
-					else {
-						System.out.print((int)numP + "pennies.");
-					}
-					
-				}
+			while (difference > 0.0) {
 				
+				difference = makeChange(difference, 20.0, "twenty");
+				difference = makeChange(difference, 10.0, "ten");
+				difference = makeChange(difference, 5.0, "five");
+				difference = makeChange(difference, 1.0, "one");
+				difference = makeChange(difference, 0.25, "quarter");
+				difference = makeChange(difference, 0.10, "dime");
+				difference = makeChange(difference, 0.05, "nickel");
+				difference = makeChange(difference, 0.01, "penny");
 			}
 		}
+		keyboard.close();
+	}
+
+	public static Double makeChange(double difference, double value, String moneyName) {
+		if ((difference / value) >= 1) {
+			double num = difference / value;
+			difference %= value;
+			if (difference < .01) {
+				difference = Math.floor(difference * 100.0) / 100.0;
+			}
+			else {
+				difference = Math.round(difference * 100.0) / 100.0;
+			}
+			if ((int)num == 1 ) {
+				System.out.println((int)num + " " + moneyName);
+			}
+			else {
+				System.out.println((int)num + " " + moneyName + "s");
+			}
+		}
+		return difference;
 	}
 }
